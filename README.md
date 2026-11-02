@@ -32,7 +32,7 @@ dsh plugin --profile web add dsh-antigravity
 ### Option 2: Direct from GitHub
 
 ```sh
-dsh plugin --profile web add github:Miyamiz39/dsh-antigravity
+dsh plugin --profile web add github:grloper/dsh-antigravity
 ```
 
 ### Option 3: From Local Release Tarball
@@ -118,19 +118,23 @@ models (enabled models are prioritized at the top of the list) — the live rema
 
 Registered model IDs:
 
-| Model ID | Name | Quota pool |
-|---|---|---|
-| `gemini-3.7-flash` | Gemini 3.7 Flash | Gemini |
-| `gemini-3.6-flash` | Gemini 3.6 Flash | Gemini |
-| `gemini-3.5-flash` | Gemini 3.5 Flash | Gemini |
-| `gemini-3.1-pro` | Gemini 3.1 Pro | Gemini |
-| `gemini-3.1-flash-image` | Gemini 3.1 Flash Image | Gemini |
-| `gemini-3-flash` | Gemini 3 Flash | Gemini |
-| `gemini-2.5-pro` | Gemini 2.5 Pro | Gemini |
-| `gemini-2.5-flash` | Gemini 2.5 Flash | Gemini |
-| `claude-opus-4-6` | Claude Opus 4.6 | Claude & GPT (3P) |
-| `claude-sonnet-4-6` | Claude Sonnet 4.6 | Claude & GPT (3P) |
-| `gpt-oss-120b` | GPT-OSS 120B | Claude & GPT (3P) |
+| Model ID | Name | Quota pool | Details |
+|---|---|---|---|
+| `gemini-4-argon` | Gemini 4 Argon | Gemini | Frontier reasoning (Low/Medium/High), 1M context, 65k output |
+| `gemini-3.8-flash` | Gemini 3.8 Flash | Gemini | Latest Flash model (Low/Medium/High), 1M context, 65k output |
+| `claude-sonnet-5-5` | Claude Sonnet 5.5 | Claude & GPT (3P) | 1M context, 128k output, Low/Medium/High thinking |
+| `claude-opus-5-5` | Claude Opus 5.5 | Claude & GPT (3P) | 1M context, 128k output, Low/Medium/High thinking |
+| `gemini-3.7-flash` | Gemini 3.7 Flash | Gemini | Fallback support |
+| `gemini-3.6-flash` | Gemini 3.6 Flash | Gemini | Fallback support |
+| `gemini-3.5-flash` | Gemini 3.5 Flash | Gemini | Fallback support |
+| `gemini-3.1-pro` | Gemini 3.1 Pro | Gemini | Pro tier fallback |
+| `gemini-3.1-flash-image` | Gemini 3.1 Flash Image | Gemini | Image generation model |
+| `gemini-3-flash` | Gemini 3 Flash | Gemini | Baseline Flash |
+| `gemini-2.5-pro` | Gemini 2.5 Pro | Gemini | Legacy fallback |
+| `gemini-2.5-flash` | Gemini 2.5 Flash | Gemini | Legacy fallback |
+| `claude-opus-4-6` | Claude Opus 4.6 | Claude & GPT (3P) | Routes to Claude Opus 5.5 |
+| `claude-sonnet-4-6` | Claude Sonnet 4.6 | Claude & GPT (3P) | Routes to Claude Sonnet 5.5 |
+| `gpt-oss-120b` | GPT-OSS 120B | Claude & GPT (3P) | Open-weights model (Medium) |
 
 Models in the same quota pool share a weekly limit and a 5-hour limit. Quota is
 consumed proportionally to token cost, so heavier models (e.g. Claude Opus)

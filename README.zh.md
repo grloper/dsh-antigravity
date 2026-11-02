@@ -30,7 +30,7 @@ dsh plugin --profile web add dsh-antigravity
 ### 方式二：直接从 GitHub 安装
 
 ```sh
-dsh plugin --profile web add github:Miyamiz39/dsh-antigravity
+dsh plugin --profile web add github:grloper/dsh-antigravity
 ```
 
 ### 方式三：通过本地 Release 包安装
@@ -115,19 +115,23 @@ $DSH_HOME/storages/antigravity-proxy.json
 
 支持注册的模型 ID：
 
-| 模型 ID | 名称 | 额度池 |
-|---|---|---|
-| `gemini-3.7-flash` | Gemini 3.7 Flash | Gemini |
-| `gemini-3.6-flash` | Gemini 3.6 Flash | Gemini |
-| `gemini-3.5-flash` | Gemini 3.5 Flash | Gemini |
-| `gemini-3.1-pro` | Gemini 3.1 Pro | Gemini |
-| `gemini-3.1-flash-image` | Gemini 3.1 Flash Image | Gemini |
-| `gemini-3-flash` | Gemini 3 Flash | Gemini |
-| `gemini-2.5-pro` | Gemini 2.5 Pro | Gemini |
-| `gemini-2.5-flash` | Gemini 2.5 Flash | Gemini |
-| `claude-opus-4-6` | Claude Opus 4.6 | Claude & GPT (3P) |
-| `claude-sonnet-4-6` | Claude Sonnet 4.6 | Claude & GPT (3P) |
-| `gpt-oss-120b` | GPT-OSS 120B | Claude & GPT (3P) |
+| 模型 ID | 名称 | 额度池 | 详情 |
+|---|---|---|---|
+| `gemini-4-argon` | Gemini 4 Argon | Gemini | 前沿推理大模型 (Low/Medium/High)，1M 上下文，65k 输出 |
+| `gemini-3.8-flash` | Gemini 3.8 Flash | Gemini | 最新 Flash (Low/Medium/High)，1M 上下文，65k 输出 |
+| `claude-sonnet-5-5` | Claude Sonnet 5.5 | Claude & GPT (3P) | 1M 上下文，128k 输出，Low/Medium/High 深度思考 |
+| `claude-opus-5-5` | Claude Opus 5.5 | Claude & GPT (3P) | 1M 上下文，128k 输出，Low/Medium/High 深度思考 |
+| `gemini-3.7-flash` | Gemini 3.7 Flash | Gemini | 兜底支持 |
+| `gemini-3.6-flash` | Gemini 3.6 Flash | Gemini | 兜底支持 |
+| `gemini-3.5-flash` | Gemini 3.5 Flash | Gemini | 兜底支持 |
+| `gemini-3.1-pro` | Gemini 3.1 Pro | Gemini | Pro 等级兜底 |
+| `gemini-3.1-flash-image` | Gemini 3.1 Flash Image | Gemini | 图像生成模型 |
+| `gemini-3-flash` | Gemini 3 Flash | Gemini | 基础 Flash |
+| `gemini-2.5-pro` | Gemini 2.5 Pro | Gemini | 历史兜底 |
+| `gemini-2.5-flash` | Gemini 2.5 Flash | Gemini | 历史兜底 |
+| `claude-opus-4-6` | Claude Opus 4.6 | Claude & GPT (3P) | 自动路由至 Claude Opus 5.5 |
+| `claude-sonnet-4-6` | Claude Sonnet 4.6 | Claude & GPT (3P) | 自动路由至 Claude Sonnet 5.5 |
+| `gpt-oss-120b` | GPT-OSS 120B | Claude & GPT (3P) | 开源大权重模型 (Medium) |
 
 同一额度池内的模型共享 5 小时与每周额度。额度按 Token 成本比例扣除，因此较重的大模型（如 Claude Opus）消耗额度速度会快于轻量模型。
 
