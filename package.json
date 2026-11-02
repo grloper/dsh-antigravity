@@ -1,6 +1,6 @@
 {
   "name": "dsh-antigravity",
-  "version": "0.0.4",
+  "version": "0.0.9",
   "description": "Google Antigravity / Cloud Code Assist model provider for DeepSeek Harness",
   "type": "module",
   "main": "lib/index.js",
@@ -16,10 +16,18 @@
     },
     "client": {
       "inject": [
+        "@deepseek-ai/dsh-client-ui-renderer",
         "@deepseek-ai/dsh-client-ui-settings",
         "@deepseek-ai/dsh-client-locale"
       ],
       "platform": "web"
+    },
+    "compatibility": {
+      "dsh": ">=0.1.5-rc.1 <0.3.0",
+      "dshReleases": {
+        "0.1.5-rc.1": "compatible",
+        "0.2.0-rc.1": "compatible"
+      }
     }
   },
   "files": [
@@ -36,7 +44,8 @@
   },
   "scripts": {
     "check": "node --check lib/index.js && node --check lib/client.js && node --check bin/antigravity-login.mjs",
-    "pack:dist": "mkdir -p dist && npm pack --pack-destination dist"
+    "test": "node --test test/*.test.mjs",
+    "pack:dist": "node -e \"require('node:fs').mkdirSync('dist', { recursive: true })\" && npm pack --pack-destination dist"
   },
   "engines": {
     "node": ">=20"
@@ -61,15 +70,19 @@
   "bugs": {
     "url": "https://github.com/LiZhenNet/dsh-antigravity/issues"
   },
-  "peerDependencies": {
-    "@deepseek-ai/dsh-home-paths": "*",
-    "@deepseek-ai/dsh-host-webserver": "*",
-    "@deepseek-ai/dsh-llm": "*",
-    "@deepseek-ai/dsh-timeout": "*"
+  "dependencies": {
+    "undici": "^7.0.0"
   },
-  "peerDependenciesMeta": {
-    "*": {
-      "optional": true
-    }
+  "peerDependencies": {
+    "@deepseek-ai/dsh-home-paths": "^0.1.5-rc.1",
+    "@deepseek-ai/dsh-host-webserver": "^0.1.5-rc.1",
+    "@deepseek-ai/dsh-llm": "^0.1.5-rc.1",
+    "@deepseek-ai/dsh-timeout": "^0.1.5-rc.1"
+  },
+  "devDependencies": {
+    "@deepseek-ai/dsh-home-paths": "^0.1.5-rc.1",
+    "@deepseek-ai/dsh-host-webserver": "^0.1.5-rc.1",
+    "@deepseek-ai/dsh-llm": "^0.1.5-rc.1",
+    "@deepseek-ai/dsh-timeout": "^0.1.5-rc.1"
   }
 }
