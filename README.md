@@ -120,7 +120,6 @@ Registered model IDs:
 
 | Model ID | Name | Quota pool | Details |
 |---|---|---|---|
-| `gemini-4-argon` | Gemini 4 Argon | Gemini | Frontier reasoning (Low/Medium/High), 1M context, 65k output |
 | `gemini-3.8-flash` | Gemini 3.8 Flash | Gemini | Latest Flash model (Low/Medium/High), 1M context, 65k output |
 | `claude-sonnet-5-5` | Claude Sonnet 5.5 | Claude & GPT (3P) | 1M context, 128k output, Low/Medium/High thinking |
 | `claude-opus-5-5` | Claude Opus 5.5 | Claude & GPT (3P) | 1M context, 128k output, Low/Medium/High thinking |

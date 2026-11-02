@@ -117,7 +117,6 @@ $DSH_HOME/storages/antigravity-proxy.json
 
 | 模型 ID | 名称 | 额度池 | 详情 |
 |---|---|---|---|
-| `gemini-4-argon` | Gemini 4 Argon | Gemini | 前沿推理大模型 (Low/Medium/High)，1M 上下文，65k 输出 |
 | `gemini-3.8-flash` | Gemini 3.8 Flash | Gemini | 最新 Flash (Low/Medium/High)，1M 上下文，65k 输出 |
 | `claude-sonnet-5-5` | Claude Sonnet 5.5 | Claude & GPT (3P) | 1M 上下文，128k 输出，Low/Medium/High 深度思考 |
 | `claude-opus-5-5` | Claude Opus 5.5 | Claude & GPT (3P) | 1M 上下文，128k 输出，Low/Medium/High 深度思考 |
