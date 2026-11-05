@@ -1,6 +1,6 @@
 {
   "name": "dsh-antigravity",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Google Antigravity / Cloud Code Assist model provider for DeepSeek Harness",
   "type": "module",
   "main": "lib/index.js",
@@ -26,7 +26,8 @@
       "dsh": ">=0.1.5-rc.1 <0.3.0",
       "dshReleases": {
         "0.1.5-rc.1": "compatible",
-        "0.2.0-rc.1": "compatible"
+        "0.2.0-rc.1": "compatible",
+        "0.2.2-rc.1": "compatible"
       }
     }
   },
@@ -64,25 +65,25 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/LiZhenNet/dsh-antigravity.git"
+    "url": "git+https://github.com/grloper/dsh-antigravity.git"
   },
-  "homepage": "https://github.com/LiZhenNet/dsh-antigravity#readme",
+  "homepage": "https://github.com/grloper/dsh-antigravity#readme",
   "bugs": {
-    "url": "https://github.com/LiZhenNet/dsh-antigravity/issues"
+    "url": "https://github.com/grloper/dsh-antigravity/issues"
   },
   "dependencies": {
     "undici": "^7.0.0"
   },
   "peerDependencies": {
-    "@deepseek-ai/dsh-home-paths": "^0.1.5-rc.1",
-    "@deepseek-ai/dsh-host-webserver": "^0.1.5-rc.1",
-    "@deepseek-ai/dsh-llm": "^0.1.5-rc.1",
-    "@deepseek-ai/dsh-timeout": "^0.1.5-rc.1"
+    "@deepseek-ai/dsh-home-paths": ">=0.1.5-rc.1 <0.3.0",
+    "@deepseek-ai/dsh-host-webserver": ">=0.1.5-rc.1 <0.3.0",
+    "@deepseek-ai/dsh-llm": ">=0.1.5-rc.1 <0.3.0",
+    "@deepseek-ai/dsh-timeout": ">=0.1.5-rc.1 <0.3.0"
   },
   "devDependencies": {
-    "@deepseek-ai/dsh-home-paths": "^0.1.5-rc.1",
-    "@deepseek-ai/dsh-host-webserver": "^0.1.5-rc.1",
-    "@deepseek-ai/dsh-llm": "^0.1.5-rc.1",
-    "@deepseek-ai/dsh-timeout": "^0.1.5-rc.1"
+    "@deepseek-ai/dsh-home-paths": ">=0.1.5-rc.1 <0.3.0",
+    "@deepseek-ai/dsh-host-webserver": ">=0.1.5-rc.1 <0.3.0",
+    "@deepseek-ai/dsh-llm": ">=0.1.5-rc.1 <0.3.0",
+    "@deepseek-ai/dsh-timeout": ">=0.1.5-rc.1 <0.3.0"
   }
 }
