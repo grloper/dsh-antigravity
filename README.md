@@ -112,40 +112,61 @@ $DSH_HOME/storages/antigravity-proxy.json
 
 ## Models
 
-After login, select the **Antigravity** provider in DSH's model picker. Use the
-model selector in **Settings > Antigravity** to enable or disable individual
-models (enabled models are prioritized at the top of the list) — the live remaining quota percentage is shown next to each one.
+After login, select the **Antigravity** provider (`agy`) in DSH's model picker. Use the
+model selector in **Settings > Antigravity** to enable or disable individual models — the
+live remaining quota percentage is shown next to each one.
 
-Registered model IDs:
+The catalog is deliberately small. **Only models verified to serve inference through Cloud
+Code Assist appear here**; everything else the backend advertises is left out, because a
+picker full of `404 model not found` is worse than a short list.
 
-| Model ID | Name | Quota pool | Details |
-|---|---|---|---|
-| `gemini-3.8-flash` | Gemini 3.8 Flash | Gemini | Latest Flash model (Low/Medium/High), 1M context, 65k output |
-| `claude-sonnet-5-5` | Claude Sonnet 5.5 | Claude & GPT (3P) | 1M context, 128k output, Low/Medium/High thinking |
-| `claude-opus-5-5` | Claude Opus 5.5 | Claude & GPT (3P) | 1M context, 128k output, Low/Medium/High thinking |
-| `gemini-3.7-flash` | Gemini 3.7 Flash | Gemini | Fallback support |
-| `gemini-3.6-flash` | Gemini 3.6 Flash | Gemini | Fallback support |
-| `gemini-3.5-flash` | Gemini 3.5 Flash | Gemini | Fallback support |
-| `gemini-3.1-pro` | Gemini 3.1 Pro | Gemini | Pro tier fallback |
-| `gemini-3.1-flash-image` | Gemini 3.1 Flash Image | Gemini | Image generation model |
-| `gemini-3-flash` | Gemini 3 Flash | Gemini | Baseline Flash |
-| `gemini-2.5-pro` | Gemini 2.5 Pro | Gemini | Legacy fallback |
-| `gemini-2.5-flash` | Gemini 2.5 Flash | Gemini | Legacy fallback |
-| `claude-opus-4-6` | Claude Opus 4.6 | Claude & GPT (3P) | Routes to Claude Opus 5.5 |
-| `claude-sonnet-4-6` | Claude Sonnet 4.6 | Claude & GPT (3P) | Routes to Claude Sonnet 5.5 |
-| `gpt-oss-120b` | GPT-OSS 120B | Claude & GPT (3P) | Open-weights model (Medium) |
+| Model ID | Name | Quota pool | Reasoning | Details |
+|---|---|---|---|---|
+| `gemini-3.8-flash` | Gemini 3.8 Flash (Argon) | Gemini | Low / Medium / High | 1M context, 65k output |
+| `claude-opus-5-5` | Claude Opus 5.5 | Claude & GPT (3P) | Low / Medium / High | 1M context, 128k output |
+| `claude-sonnet-5-5` | Claude Sonnet 5.5 | Claude & GPT (3P) | Low / Medium / High | 1M context, 128k output |
 
-Models in the same quota pool share a weekly limit and a 5-hour limit. Quota is
-consumed proportionally to token cost, so heavier models (e.g. Claude Opus)
-drain the pool faster than lighter ones.
+### Wire routing
 
-The plugin resolves these public IDs to runtime model IDs using the live
-`fetchAvailableModels` catalog when available, with static routing fallbacks.
+DSH model IDs are stable names; the adapter maps them to the wire IDs the gateway accepts:
 
-For reasoning-capable models, the plugin defaults to medium effort (or high when
-that is the only advertised level), explicitly requests upstream thoughts, and
-maps streamed thoughts to DSH `reasoning` content blocks. The effort remains
-selectable from the model picker.
+| Advertised model | Wire ID used |
+|---|---|
+| `gemini-3.8-flash` | `gemini-3.8-flash-tiered` |
+| `claude-opus-5-5` | `claude-opus-5-5-{low,medium,high}` |
+| `claude-sonnet-5-5` | `claude-sonnet-5-5-{low,medium,high}` |
+
+`gemini-3.8-flash-low/-medium/-high` do **not** exist on the backend — they answer
+`404 model not found`. Gemini 3.8 accepts effort through
+`generationConfig.thinkingConfig.thinkingLevel` instead, so one wire ID serves all levels.
+
+### Aliases
+
+These are not shown in the picker, but resolve to a serving model so older sessions and
+habitual names keep working:
+
+`gemini-3.8-pro` · `argon` · `argon-3.8` · `argon-3.8-pro` · `argon-4` · `gemini-pro` ·
+`gemini-3.1-pro` → `gemini-3.8-flash-tiered`
+`claude-opus-4-6` → `claude-opus-5-5`
+`claude-sonnet-4-6` → `claude-sonnet-5-5`
+
+### Not offered, and why
+
+| Model | Reason |
+|---|---|
+| `gemini-2.5-pro` | Backend answers `503 No capacity available` on every host |
+| `gemini-3.1-pro`, `gemini-pro-agent` | `404 model not found` |
+| `gemini-3.7-flash`, `gemini-3.6-flash`, `gemini-3.5-flash`, `gemini-3-flash` | `404 model not found` for this account |
+| `gemini-2.5-flash`, `gemini-2.5-flash-lite`, `gemini-3.1-flash-lite` | Serve, but are older/flash-lite tiers |
+| `gpt-oss-120b` | Served, but not part of the Pro model set |
+| `gemini-3.1-flash-image` | Image generation, not a chat model |
+
+Models in the same quota pool share a weekly limit and a 5-hour limit. Quota is consumed
+proportionally to token cost, so heavier models (e.g. Claude Opus) drain the pool faster.
+
+For reasoning-capable models, the plugin requests upstream thoughts and maps streamed
+thoughts to DSH `reasoning` content blocks. The effort remains selectable per message.
+
 
 ## License
 
