@@ -110,6 +110,26 @@ The proxy configuration is stored at:
 $DSH_HOME/storages/antigravity-proxy.json
 ```
 
+## Client version
+
+Cloud Code Assist only serves requests whose `User-Agent` advertises a currently supported
+Antigravity client. When it does not, the service **does not return an HTTP error**: it answers
+with a plain-text notice ("This version of Antigravity is no longer supported…") delivered as the
+completion body, so a pinned version rots into every reply looking like model output.
+
+The adapter therefore resolves the version on every process start, newest source first:
+
+1. `ANTIGRAVITY_CLIENT_VERSION` (or `NOAGY_CLIENT_VERSION`) — explicit override, e.g. `2.29.0`
+2. the version of the locally installed Antigravity app, read from its `resources/app.asar`
+3. a bundled fallback constant
+
+`ANTIGRAVITY_USER_AGENT` (or `NOAGY_USER_AGENT`) still replaces the whole `User-Agent` string when
+you need to mimic an exact client.
+
+The notice is also detected before it can reach the transcript and re-raised as an error naming
+the rejected version, so a future upstream gate fails loudly instead of silently answering with
+marketing copy.
+
 ## Models
 
 After login, select the **Antigravity** provider (`agy`) in DSH's model picker. Use the
